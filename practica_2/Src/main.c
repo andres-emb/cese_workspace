@@ -128,6 +128,13 @@ void normalizeVariableSpecIdx(uint32_t * currentSpecIdx)
 
 int main(void)
 {
+  /*
+   * ***********************************
+   * Designed to work with NUCLEO-F429ZI
+   * ***********************************
+  */
+
+
   /* STM32F4xx HAL library initialization:
        - Configure the Flash prefetch
        - Systick timer is configured by default as source of time base, but user 
