@@ -108,7 +108,7 @@ bool_t delayRead(delay_t * delay)
 }
 
 /**
- * @brief  Modify the current duration of the delayx
+ * @brief  Modify the current duration of the delay
  * @param  delay: pointer to the delay
  * @param  duration: new duration in ms
  * @retval None
