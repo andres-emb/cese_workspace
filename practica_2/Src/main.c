@@ -46,23 +46,33 @@ static void Error_Handler(void);
 /* Private functions ---------------------------------------------------------*/
 
 /**
-  * @brief  Main program
-  * @param  None
-  * @retval None
-  */
-
+ * @brief  Validate if the delay pointer is not NULL
+ * @param  delay: pointer to the desired delay
+ * @retval None
+ */
 void validateDelay(delay_t * delay) {
 	if (delay == NULL) {
 		Error_Handler();
 	}
 }
 
+/**
+ * @brief  Validate if the variableSpec pointer is not NULL
+ * @param  spec: pointer to the desired variableSpec
+ * @retval None
+ */
 void validateVariableSpec(variableSpec_t * spec) {
 	if (spec == NULL) {
 		Error_Handler();
 	}
 }
 
+/**
+ * @brief  Initialize the delay according to the duration
+ * @param  delay: pointer to the delay
+ * @param  duration: desired duration in ms
+ * @retval None
+ */
 void delayInit(delay_t * delay, tick_t duration)
 {
 	validateDelay(delay);
@@ -72,6 +82,11 @@ void delayInit(delay_t * delay, tick_t duration)
 	delay->running = false;
 }
 
+/**
+ * @brief  Read the current state of the delay
+ * @param  delay: pointer to the delay
+ * @retval True when the delay has been exceeded
+ */
 bool_t delayRead(delay_t * delay)
 {
 	validateDelay(delay);
@@ -92,6 +107,12 @@ bool_t delayRead(delay_t * delay)
 	return false;
 }
 
+/**
+ * @brief  Modify the current duration of the delayx
+ * @param  delay: pointer to the delay
+ * @param  duration: new duration in ms
+ * @retval None
+ */
 void delayWrite(delay_t * delay, tick_t duration)
 {
 	validateDelay(delay);
@@ -99,6 +120,13 @@ void delayWrite(delay_t * delay, tick_t duration)
 	delay->duration = duration;
 }
 
+/**
+ * @brief  Initialize the variable delay structure
+ * @param  delay: pointer to the delay
+ * @param  variableSpec: pointer to variable specification
+ * @param  isOnState: indicates if the cycle is on or off
+ * @retval None
+ */
 void variableDelayInit(delay_t * delay, variableSpec_t * variableSpec, bool_t isOnState)
 {
 	validateDelay(delay);
@@ -109,16 +137,22 @@ void variableDelayInit(delay_t * delay, variableSpec_t * variableSpec, bool_t is
 	delayInit(delay, duration);
 }
 
-uint32_t getNextVariableDelayIdx(uint32_t currentIdx)
-{
-	return (++currentIdx < MAX_VARIABLE_DELAYS) ? currentIdx : 0;
-}
-
+/**
+ * @brief  Check if the max variable spec iterations has been reached
+ * @param  currentIterations: current iterations of the variable spec
+ * @param  maxIterations: max iterations of the variable spec
+ * @retval True when maxIterations has been exceeded
+ */
 bool_t shouldUpdateVariableSpec(uint32_t currentIterations, uint32_t maxIterations)
 {
 	return currentIterations >= maxIterations;
 }
 
+/**
+ * @brief  reset the currentSpecIdx if it exceeds the variable specification array size
+ * @param  currentSpecIdx: current index of the variable specification
+ * @retval None
+ */
 void normalizeVariableSpecIdx(uint32_t * currentSpecIdx)
 {
 	if (*currentSpecIdx >= MAX_VARIABLE_DELAYS) {
@@ -126,6 +160,11 @@ void normalizeVariableSpecIdx(uint32_t * currentSpecIdx)
 	}
 }
 
+/**
+  * @brief  Main program
+  * @param  None
+  * @retval None
+  */
 int main(void)
 {
   /*
