@@ -70,15 +70,14 @@ typedef struct {
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
-void validateDelay(delay_t * delay);
-void validateVariableSpec(variableSpec_t * spec);
-
 void delayInit(delay_t * delay, tick_t duration);
 bool_t delayRead(delay_t * delay);
 void delayWrite(delay_t * delay, tick_t duration);
 
+void validateDelay(delay_t * delay);
+void validateVariableSpec(variableSpec_t * spec);
 void variableDelayInit(delay_t * delay, variableSpec_t * variableSpec, bool_t isActiveState);
-
+void variableDelayWrite(delay_t * delay, variableSpec_t * variableSpec, bool_t isOnState);
 
 #endif /* __MAIN_H */
 

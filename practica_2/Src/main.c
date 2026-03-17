@@ -116,7 +116,6 @@ bool_t delayRead(delay_t * delay)
 void delayWrite(delay_t * delay, tick_t duration)
 {
 	validateDelay(delay);
-
 	delay->duration = duration;
 }
 
@@ -135,6 +134,23 @@ void variableDelayInit(delay_t * delay, variableSpec_t * variableSpec, bool_t is
 	double timeFactor = isOnState ? variableSpec->dutyCycle / 100.0 : 1 - variableSpec->dutyCycle / 100.0;
 	tick_t duration = variableSpec->periodMs * timeFactor;
 	delayInit(delay, duration);
+}
+
+/**
+ * @brief  Modify the current variable delay structure
+ * @param  delay: pointer to the delay
+ * @param  variableSpec: pointer to variable specification
+ * @param  isOnState: indicates if the cycle is on or off
+ * @retval None
+ */
+void variableDelayWrite(delay_t * delay, variableSpec_t * variableSpec, bool_t isOnState)
+{
+	validateDelay(delay);
+	validateVariableSpec(variableSpec);
+
+	double timeFactor = isOnState ? variableSpec->dutyCycle / 100.0 : 1 - variableSpec->dutyCycle / 100.0;
+	tick_t duration = variableSpec->periodMs * timeFactor;
+	delayWrite(delay, duration);
 }
 
 /**
@@ -216,7 +232,7 @@ int main(void)
 
 	  if (delayRead(&delay)) {
 		  BSP_LED_Toggle(LED1);
-		  delayInit(&delay, DELAY_TIMER_MS);
+		  delayWrite(&delay, DELAY_TIMER_MS);
 	  }
 
 	  if (delayRead(&variableDelay)) {
@@ -235,7 +251,7 @@ int main(void)
 			  variableSpecIterations = 0;
 		  }
 
-		  variableDelayInit(&variableDelay, currentVariableSpec, isOnState);
+		  variableDelayWrite(&variableDelay, currentVariableSpec, isOnState);
 	  }
   }
 }
