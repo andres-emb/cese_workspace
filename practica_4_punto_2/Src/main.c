@@ -54,6 +54,11 @@ static void Error_Handler(void);
 
 /* Private functions ---------------------------------------------------------*/
 
+/**
+  * @brief  Get the associated frequency of a ledBlinkFrequency_t value
+  * @param  None
+  * @retval The frequency time in ms
+  */
 uint32_t getBlinkFrequencyMs(ledBlinkFrequency_t blinkFrequency) {
 	switch (blinkFrequency) {
 	case HIGH_FREQUENCY:
@@ -64,6 +69,11 @@ uint32_t getBlinkFrequencyMs(ledBlinkFrequency_t blinkFrequency) {
 	}
 }
 
+/**
+  * @brief  Toggle the value of a ledBlinkFrequency_t value
+  * @param  None
+  * @retval None
+  */
 void toggleBlinkFrequency(ledBlinkFrequency_t * blinkFrequency) {
 	*blinkFrequency = !*blinkFrequency;
 }
