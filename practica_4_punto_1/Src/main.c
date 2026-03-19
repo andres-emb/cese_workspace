@@ -57,25 +57,38 @@ static void Error_Handler(void);
 /* Private functions ---------------------------------------------------------*/
 
 /**
-  * @brief  Main program
+  * @brief  Turn on the LED 1 after pressing a button
   * @param  None
   * @retval None
   */
-
-
 void buttonPressed(void) {
 	BSP_LED_On(LED1);
 }
 
+/**
+  * @brief  Turn off the LED 1 after pressing a button
+  * @param  None
+  * @retval None
+  */
 void buttonReleased(void) {
 	BSP_LED_Off(LED1);
 }
 
+/**
+  * @brief  Initialize a FSM to handle the debounce operation
+  * @param  None
+  * @retval None
+  */
 void debounceFSM_init(void) {
 	debounceState = BUTTON_UP;
 	delayInit(&debounceDelay, DEBOUNCE_TIME_MS);
 }
 
+/**
+  * @brief  Updates the FSM according to the current state and the current state of the button GPIO
+  * @param  None
+  * @retval None
+  */
 void debounceFSM_update(void) {
 
 	GPIO_PinState buttonState = BSP_PB_GetState(BUTTON_USER);
@@ -117,6 +130,13 @@ void debounceFSM_update(void) {
 		break;
 	};
 }
+
+
+/**
+  * @brief  Turn on/off the LED1 after the User Button is effectively pressed/released
+  * @param  None
+  * @retval None
+  */
 
 int main(void)
 {
