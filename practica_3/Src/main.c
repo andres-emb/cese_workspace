@@ -77,7 +77,6 @@ int main(void)
 
   /* Initialize BSP Led for LED1 and LED2 */
   BSP_LED_Init(LED1); // Used for fixed delay
-  BSP_LED_Init(LED2); // Used for variable delay
 
 
   const uint32_t TIME_SERIE[] = {500, 100, 100, 1000};
@@ -190,7 +189,7 @@ static void SystemClock_Config(void)
 static void Error_Handler(void)
 {
   /* Turn LED3 on */
-  BSP_LED_On(LED3);
+  BSP_LED_On(LED1);
   while (1)
   {
   }
