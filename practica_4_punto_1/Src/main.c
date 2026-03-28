@@ -104,7 +104,6 @@ void debounceFSM_update(void) {
 			if (buttonState == GPIO_PIN_SET) {
 				debounceState = BUTTON_DOWN;
 				buttonPressed();
-
 			} else {
 				debounceState = BUTTON_UP;
 			}
